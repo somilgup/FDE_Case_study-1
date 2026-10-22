@@ -6,10 +6,11 @@ def test_similarity_returns_results():
 
     tickets = [
         {
-            "ticket_id": 1,
+            "ticket_id": "T-1001",
+            "category": "auth",
             "subject": "Login issue",
             "description": "Cannot login",
-            "resolution": "Reset password"
+            "resolution_notes": "Reset password"
         }
     ]
 
@@ -29,17 +30,18 @@ def test_similarity_returns_results():
 
     assert len(results) == 1
 
-    assert results[0]["ticket_id"] == 1
+    assert results[0]["ticket_id"] == "T-1001"
 
 
 def test_scores_present():
 
     tickets = [
         {
-            "ticket_id": 1,
+            "ticket_id": "T-2001",
+            "category": "api",
             "subject": "API timeout",
             "description": "Request timeout",
-            "resolution": "Increase timeout"
+            "resolution_notes": "Increase timeout"
         }
     ]
 

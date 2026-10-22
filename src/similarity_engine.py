@@ -14,7 +14,12 @@ class SimilarityEngine:
         self.tickets = tickets
 
         texts = [
-            f"{t['subject']} {t['description']}"
+            f"""
+            {t.get('category', '')}
+            {' '.join(t.get('tags', []))}
+            {t.get('subject', '')}
+            {t.get('description', '')}
+            """
             for t in tickets
         ]
 
@@ -42,9 +47,14 @@ class SimilarityEngine:
 
             results.append(
                 {
-                    "ticket_id": ticket["ticket_id"],
-                    "subject": ticket["subject"],
-                    "resolution": ticket["resolution"],
+                    "ticket_id": ticket.get("ticket_id", ""),
+                    "category": ticket.get("category", ""),
+                    "subject": ticket.get("subject", ""),
+                    "description": ticket.get("description", ""),
+                    "resolution_notes": ticket.get(
+                        "resolution_notes",
+                        ticket.get("resolution", "")
+                    ),
                     "score": float(scores[idx])
                 }
             )

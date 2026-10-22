@@ -13,6 +13,10 @@ st.set_page_config(
 
 st.title("Support Ticket Similarity Assistant")
 
+st.write(
+    "Enter a new support ticket and discover similar historical tickets along with their resolutions."
+)
+
 tickets = load_tickets(
     "data/tickets.json"
 )
@@ -29,12 +33,19 @@ engine.build_index(
 
 ticket_text = st.text_area(
     "Enter a new support ticket",
-    height=200
+    height=200,
+    placeholder="Example: Customer cannot log in after resetting password. Login page says password is incorrect."
 )
 
 if st.button("Find Similar Tickets"):
 
-    if ticket_text:
+    if not ticket_text.strip():
+
+        st.warning(
+            "Please enter a ticket description."
+        )
+
+    else:
 
         cleaned_ticket = clean_text(
             ticket_text
@@ -57,14 +68,35 @@ if st.button("Find Similar Tickets"):
             with st.expander(
                 f"{r['subject']} ({confidence}%)"
             ):
+
                 st.write(
-                    f"Ticket ID: {r['ticket_id']}"
+                    f"**Ticket ID:** {r['ticket_id']}"
                 )
 
                 st.write(
-                    f"Resolution: {r['resolution']}"
+                    f"**Category:** {r['category']}"
+                )
+
+                st.write(
+                    f"**Original Issue:**"
+                )
+
+                st.write(
+                    r["description"]
+                )
+
+                st.write(
+                    f"**Resolution:**"
+                )
+
+                st.write(
+                    r["resolution_notes"]
                 )
 
                 st.progress(
                     float(r["score"])
+                )
+
+                st.caption(
+                    f"Similarity Score: {confidence}%"
                 )

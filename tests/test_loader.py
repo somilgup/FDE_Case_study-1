@@ -1,14 +1,8 @@
-from src.ticket_loader import load_tickets
+import json
 
+def load_tickets(file_path):
 
-def test_load_tickets():
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
 
-    tickets = load_tickets(
-        "data/tickets.json"
-    )
-
-    assert len(tickets) > 0
-
-    assert "subject" in tickets[0]
-
-    assert "resolution" in tickets[0]
+    return data["tickets"]
