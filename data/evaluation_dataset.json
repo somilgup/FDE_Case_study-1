@@ -1,0 +1,14 @@
+[
+  {
+    "query": "Unable to access dashboard",
+    "expected_ticket_id": 102
+  },
+  {
+    "query": "Authentication failure during login",
+    "expected_ticket_id": 101
+  },
+  {
+    "query": "Report API is timing out",
+    "expected_ticket_id": 103
+  }
+]
